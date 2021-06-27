@@ -38,7 +38,7 @@ namespace SalesReact
             //var connectionString = config["mysqlconnection:connectionString"];
             //services.AddDbContext<RepositoryContext>(o => o.UseMySql(connectionString));
 
-            
+
             string dbConnectionString = Configuration.GetConnectionString("DotNetCoreMySQLAppConnection");
             services.AddDbContext<GoodDBContext>(opt => opt.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
 
@@ -54,6 +54,11 @@ namespace SalesReact
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            app.UseCors(options =>
+            options.WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+.AllowAnyMethod());
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -84,10 +89,10 @@ namespace SalesReact
             {
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
+                //if (env.IsDevelopment())
+                //{
+                //    spa.UseReactDevelopmentServer(npmScript: "start");
+                //}
             });
         }
     }
