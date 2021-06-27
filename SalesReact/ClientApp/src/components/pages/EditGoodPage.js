@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { EditGood } from '../good/EditGood';
+import { useParams } from "react-router";
 
-export class EditGoodPage extends Component {
+export function EditGoodPage() {
+    const { id } = useParams();
 
-    render() {
-        return (
-            <div>
-                <EditGood></EditGood>
-            </div>
-        );
-    }
-
+    return (
+        <div>
+            <EditGood goodid={id}></EditGood>
+        </div>
+    );
 }

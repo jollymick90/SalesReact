@@ -20,7 +20,7 @@ export default class App extends Component {
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data' component={FetchData} />
         <Route path='/good-data' component={GoodsPage} />
-        <Route path='/edit-good' component={EditGoodPage} />
+        <Route path='/edit-good/:id' component={EditGoodPage} />
       </Layout>
     );
   }

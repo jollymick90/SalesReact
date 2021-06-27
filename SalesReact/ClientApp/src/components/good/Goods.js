@@ -48,7 +48,7 @@ export class Goods extends Component {
         <h1 id="tabelLabel" >Goods</h1>
         <p>All Goods</p>
         <div>
-            <Link to="/edit-good" className="btn btn-primary">Add</Link>
+            <Link to="/edit-good/-1" className="btn btn-primary">Add</Link>
         </div>
         {contents}
       </div>
@@ -56,9 +56,8 @@ export class Goods extends Component {
   }
 
   async populateGoodData() {
-
     const response = await getGoods();
-    const data = await response.json();
+    const data = await response.data;
     this.setState({ goods: data, loading: false });
   }
 }

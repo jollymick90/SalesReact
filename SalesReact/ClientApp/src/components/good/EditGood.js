@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { getGood } from '../../services/network/goods';
 
 export class EditGood extends Component {
     static displayName = EditGood.name;
 
     constructor(props) {
         super(props);
+        this.goodid = props.goodid
         this.state = { good: [], loading: true };
     }
 
@@ -28,16 +30,19 @@ export class EditGood extends Component {
     static renderGood(good) {
         return (
           <div>
-              <h2>good.name</h2>
-              
+              <h4>Name: {good.name}</h4>
+              <h5>Price: {good.price}</h5>              
           </div>
         );
       }
 
     async populateGoodData() {
-        console.log("ciao")
-        //const response = await fetch('api/goods/');
-        //const data = await response.json();
-        //this.setState({ goods: data, loading: false });
+        let goodData = {}
+        if (this.goodid > 0) {
+            const response = await getGood(this.goodid);
+            goodData = await response.data;
+        }
+
+        this.setState({ good: goodData, loading: false });
     }
 }
