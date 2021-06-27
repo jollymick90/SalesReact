@@ -41,6 +41,7 @@ namespace SalesReact
 
             string dbConnectionString = Configuration.GetConnectionString("DotNetCoreMySQLAppConnection");
             services.AddDbContext<GoodDBContext>(opt => opt.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
+            services.AddDbContext<GoodTypeContext>(opt => opt.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
 
             services.AddControllersWithViews();
 
@@ -58,7 +59,7 @@ namespace SalesReact
             app.UseCors(options =>
             options.WithOrigins("http://localhost:3000")
                 .AllowAnyHeader()
-.AllowAnyMethod());
+                .AllowAnyMethod());
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -78,21 +79,17 @@ namespace SalesReact
 
             app.UseEndpoints(endpoints =>
             {
-
                 endpoints.MapControllers();
-                //endpoints.MapControllerRoute(
-                //    name: "default",
-                //    pattern: "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
 
-                //if (env.IsDevelopment())
-                //{
-                //    spa.UseReactDevelopmentServer(npmScript: "start");
-                //}
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
             });
         }
     }

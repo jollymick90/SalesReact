@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getGood } from '../../services/network/goods';
+import { getGood } from '../../services/network/good';
 
 export class EditGood extends Component {
     static displayName = EditGood.name;

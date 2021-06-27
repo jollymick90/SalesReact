@@ -16,5 +16,9 @@ namespace SalesReact.Models
 
         public int price { get; set; }
 
+        
+        //[Column("good_type")]        
+        public virtual GoodType goodType { get; set; }
+
     }
 }

@@ -1,35 +1,33 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getGoods } from '../../services/network/good';
+import { getGoodTypes } from '../../services/network/good_type';
 
-export class Goods extends Component {
-  static displayName = Goods.name;
+export class GoodTypes extends Component {
+  static displayName = GoodTypes.name;
   constructor(props) {
     super(props);
-    this.state = { goods: [], loading: true };  
+    this.state = { goodsTypes: [], loading: true };  
   }
 
   componentDidMount() {
-    this.populateGoodData();
+    this.populateGoodTypesData();
   }
 
-  static renderGoodsTable(goods) {
+  static renderGoodTypessTable(goodTypes) {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
           <tr>
             <th>Name</th>
-            <th>Price</th>
             <th>Edit</th>
           </tr>
         </thead>
         <tbody>
-          {goods.map(good =>
-            <tr key={good.id}>
-              <td>{good.name}</td>
-              <td>{good.price}</td>
+          {goodTypes.map(goodType =>
+            <tr key={goodType.id}>
+              <td>{goodType.name}</td>
               <td>                  
-                  <Link to={`/edit-good/${good.id}`} className="btn btn-primary">Edit</Link>
+                  <Link to={`/edit-goodType/${goodType.id}`} className="btn btn-primary">Edit</Link>
               </td>
             </tr>
           )}
@@ -41,22 +39,22 @@ export class Goods extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-        : Goods.renderGoodsTable(this.state.goods);
+        : GoodTypes.renderGoodTypesTable(this.state.goods);
 
     return (
       <div>
-        <h1 id="tabelLabel" >Goods</h1>
-        <p>All Goods</p>
+        <h1 id="tabelLabel" >GoodTypes</h1>
+        <p>All Good's Types</p>
         <div>
-            <Link to="/edit-good/-1" className="btn btn-primary">Add</Link>
+            <Link to="/edit-goodType/-1" className="btn btn-primary">Add</Link>
         </div>
         {contents}
       </div>
     );
   }
 
-  async populateGoodData() {
-    const response = await getGoods();
+  async populateGoodTypesData() {
+    const response = await getGoodTypes();
     const data = await response.data;
     this.setState({ goods: data, loading: false });
   }
