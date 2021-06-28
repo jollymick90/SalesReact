@@ -35,7 +35,7 @@ export default class App extends Component {
 
         <Route path='/tax' component={TaxListPage} />
         <Route path='/tax-edit/:id' component={EditTaxPage} />
-        <Route path='/tax/edit/:id' component={EditTaxPage} />
+        {/* <Route path='/tax/edit/:id' component={EditTaxPage} /> */}
 
       </Layout>
     );

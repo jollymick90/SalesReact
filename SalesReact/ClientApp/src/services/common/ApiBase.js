@@ -1,4 +1,9 @@
-import http from "../../common/API";
+import axios from "axios";
+
+const http = axios.create({
+  baseURL: "https://localhost:44301",
+  responseType: "json"
+});
 
 export class BaseService {
     constructor(baseApi) {

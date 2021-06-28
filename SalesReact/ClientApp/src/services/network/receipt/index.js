@@ -6,7 +6,7 @@ const api = `/api/${type}`;
 class ReceiptAPI {
 
     constructor() {
-        instance = new BaseService(api)
+        this.instance = new BaseService(api)
     }
 
     getAll() {
@@ -18,11 +18,11 @@ class ReceiptAPI {
     }
 
     create(data) {
-        return this.instance.post(data);
+        return this.instance.create(data);
     }
 
     update(id, data) {
-        return this.instance.put(id, data);
+        return this.instance.update(id, data);
     }
 
     delete(id) {

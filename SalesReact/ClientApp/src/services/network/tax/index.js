@@ -6,7 +6,7 @@ const api = `/api/${type}`;
 class TaxAPI {
 
     constructor() {
-        instance = new BaseService(api)
+        this.instance = new BaseService(api)
     }
 
     getAll() {
@@ -18,11 +18,11 @@ class TaxAPI {
     }
 
     create(data) {
-        return this.instance.post(data);
+        return this.instance.create(data);
     }
 
     update(id, data) {
-        return this.instance.put(id, data);
+        return this.instance.update(id, data);
     }
 
     delete(id) {
@@ -34,5 +34,5 @@ class TaxAPI {
     }
 
 }
-
-export default new TaxAPI();
+const TaxApi = new TaxAPI();
+export default TaxApi;
