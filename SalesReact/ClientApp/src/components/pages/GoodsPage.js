@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Goods } from '../good/Goods'
+// import React, { Component } from 'react';
+// import { Goods } from '../good/Goods'
 
-export class GoodsPage extends Component {
-  render() {
+// export class GoodsPage extends Component {
+//   render() {
 
-    return (
-      <div>
-        <Goods></Goods>
-      </div>
-    );
-  }
+//     return (
+//       <div>
+//         <Goods></Goods>
+//       </div>
+//     );
+//   }
 
-}
+// }

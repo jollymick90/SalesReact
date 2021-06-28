@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { GoodTypes } from '../good_type/GoodTypes'
+// import React, { Component } from 'react';
+// import { GoodTypes } from '../good_type/GoodTypes'
 
-export class GoodTypesPage extends Component {
-  render() {
+// export class GoodTypesPage extends Component {
+//   render() {
 
-    return (
-      <div>
-        <GoodTypes></GoodTypes>
-      </div>
-    );
-  }
+//     return (
+//       <div>
+//         <GoodTypes></GoodTypes>
+//       </div>
+//     );
+//   }
 
-}
+// }

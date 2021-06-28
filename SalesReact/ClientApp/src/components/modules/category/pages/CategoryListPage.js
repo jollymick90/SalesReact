@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function CategpryListPage() {
+export function CategoryListPage() {
     
     return (
         <div>

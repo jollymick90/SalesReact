@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Receipts } from '../receipt/Receipts'
+// import React, { Component } from 'react';
+// import { Receipts } from '../receipt/Receipts'
 
-export class ReceiptsPage extends Component {
-  render() {
+// export class ReceiptsPage extends Component {
+//   render() {
 
-    return (
-      <div>
-        <Receipts></Receipts>
-      </div>
-    );
-  }
+//     return (
+//       <div>
+//         <Receipts></Receipts>
+//       </div>
+//     );
+//   }
 
-}
+// }
