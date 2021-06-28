@@ -1,9 +1,9 @@
 import { BaseService } from "../../common/ApiBase";
 
-const type = "receipts";
+const type = "taxes";
 const api = `/api/${type}`;
 
-class ReceiptAPI {
+class TaxAPI {
 
     constructor() {
         instance = new BaseService(api)
@@ -35,4 +35,4 @@ class ReceiptAPI {
 
 }
 
-export default new ReceiptAPI();
+export default new TaxAPI();

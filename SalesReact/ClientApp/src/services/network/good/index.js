@@ -1,9 +1,38 @@
-import API from "../API";
+import { BaseService } from "../../common/ApiBase";
 
-export const getGoods = async () => {
-    return await API.get('/api/goods');
+const type = "goods";
+const api = `/api/${type}`;
+
+class GoodAPI {
+
+    constructor() {
+        instance = new BaseService(api)
+    }
+
+    getAll() {
+        return this.instance.getAll();
+    }
+
+    get(id) {
+        return this.instance.get(id);
+    }
+
+    create(data) {
+        return this.instance.post(data);
+    }
+
+    update(id, data) {
+        return this.instance.put(id, data);
+    }
+
+    delete(id) {
+        return this.instance.delete(id);
+    }
+
+    deleteAll() {
+        return this.instance.delete();
+    }
+
 }
 
-export const getGood = async (id) => {
-    return await API.get(`/api/goods/${id}`);
-}
+export default new GoodAPI();

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getReceipts } from '../../services/network/receipt';
+import { getReceipts } from '../../../services/network/receipt';
 
 export class Receipts extends Component {
   static displayName = Receipts.name;
