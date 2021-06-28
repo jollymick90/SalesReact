@@ -11,48 +11,47 @@ namespace SalesReact.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GoodTypesController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
-        private readonly GoodTypeContext _context;
+        private readonly SalesContext _context;
 
-        public GoodTypesController(GoodTypeContext context)
+        public CategoriesController(SalesContext context)
         {
             _context = context;
         }
 
-        // GET: api/Goods
+        // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GoodType>>> GetGoodType()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            Console.WriteLine("hello");
-            return await _context.GoodType.ToListAsync();
+            return await _context.Categories.ToListAsync();
         }
 
-        // GET: api/Goods/5
+        // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<GoodType>> GetGoodType(int id)
+        public async Task<ActionResult<Category>> GetCategory(int id)
         {
-            var goodType = await _context.GoodType.FindAsync(id);
+            var category = await _context.Categories.FindAsync(id);
 
-            if (goodType == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return goodType;
+            return category;
         }
 
-        // PUT: api/Goods/5
+        // PUT: api/Categories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGoodType(int id, GoodType goodType)
+        public async Task<IActionResult> PutCategory(int id, Category category)
         {
-            if (id != goodType.id)
+            if (id != category.CategoryId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(goodType).State = EntityState.Modified;
+            _context.Entry(category).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +59,7 @@ namespace SalesReact.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!GoodTypeExists(id))
+                if (!CategoryExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +72,36 @@ namespace SalesReact.Controllers
             return NoContent();
         }
 
-        // POST: api/Goods
+        // POST: api/Categories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Good>> PostGoodType(GoodType goodType)
+        public async Task<ActionResult<Category>> PostCategory(Category category)
         {
-            _context.GoodType.Add(goodType);
+            _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGoodType", new { id = goodType.id }, goodType);
+            return CreatedAtAction("GetCategory", new { id = category.CategoryId }, category);
         }
 
-        // DELETE: api/Goods/5
+        // DELETE: api/Categories/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGoodType(int id)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
-            var goodType = await _context.GoodType.FindAsync(id);
-            if (goodType == null)
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            _context.GoodType.Remove(goodType);
+            _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool GoodTypeExists(int id)
+        private bool CategoryExists(int id)
         {
-            return _context.GoodType.Any(e => e.id == id);
+            return _context.Categories.Any(e => e.CategoryId == id);
         }
     }
 }

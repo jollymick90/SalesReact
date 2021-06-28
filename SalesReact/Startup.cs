@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using MySQL.Data.EntityFrameworkCore;
 using SalesReact.Models;
 
 namespace SalesReact
@@ -29,19 +28,7 @@ namespace SalesReact
              */
             //services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
 
-
-
-            //services.AddDbContext<GoodDBContext>(options =>
-            //options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
-
-            //mysql test
-            //var connectionString = config["mysqlconnection:connectionString"];
-            //services.AddDbContext<RepositoryContext>(o => o.UseMySql(connectionString));
-
-
-            string dbConnectionString = Configuration.GetConnectionString("DotNetCoreMySQLAppConnection");
-            services.AddDbContext<GoodDBContext>(opt => opt.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
-            services.AddDbContext<GoodTypeContext>(opt => opt.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
+            services.AddDbContext<SalesContext>();
 
             services.AddControllersWithViews();
 

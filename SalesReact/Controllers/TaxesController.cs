@@ -11,47 +11,47 @@ namespace SalesReact.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GoodsController : ControllerBase
+    public class TaxesController : ControllerBase
     {
         private readonly SalesContext _context;
 
-        public GoodsController(SalesContext context)
+        public TaxesController(SalesContext context)
         {
             _context = context;
         }
 
-        // GET: api/Goods
+        // GET: api/Taxes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Good>>> GetGoods()
+        public async Task<ActionResult<IEnumerable<Tax>>> GetTaxes()
         {
-            return await _context.Goods.ToListAsync();
+            return await _context.Taxes.ToListAsync();
         }
 
-        // GET: api/Goods/5
+        // GET: api/Taxes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Good>> GetGood(int id)
+        public async Task<ActionResult<Tax>> GetTax(int id)
         {
-            var good = await _context.Goods.FindAsync(id);
+            var tax = await _context.Taxes.FindAsync(id);
 
-            if (good == null)
+            if (tax == null)
             {
                 return NotFound();
             }
 
-            return good;
+            return tax;
         }
 
-        // PUT: api/Goods/5
+        // PUT: api/Taxes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGood(int id, Good good)
+        public async Task<IActionResult> PutTax(int id, Tax tax)
         {
-            if (id != good.GoodId)
+            if (id != tax.TaxId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(good).State = EntityState.Modified;
+            _context.Entry(tax).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace SalesReact.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!GoodExists(id))
+                if (!TaxExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace SalesReact.Controllers
             return NoContent();
         }
 
-        // POST: api/Goods
+        // POST: api/Taxes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Good>> PostGood(Good good)
+        public async Task<ActionResult<Tax>> PostTax(Tax tax)
         {
-            _context.Goods.Add(good);
+            _context.Taxes.Add(tax);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGood", new { id = good.GoodId }, good);
+            return CreatedAtAction("GetTax", new { id = tax.TaxId }, tax);
         }
 
-        // DELETE: api/Goods/5
+        // DELETE: api/Taxes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGood(int id)
+        public async Task<IActionResult> DeleteTax(int id)
         {
-            var good = await _context.Goods.FindAsync(id);
-            if (good == null)
+            var tax = await _context.Taxes.FindAsync(id);
+            if (tax == null)
             {
                 return NotFound();
             }
 
-            _context.Goods.Remove(good);
+            _context.Taxes.Remove(tax);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool GoodExists(int id)
+        private bool TaxExists(int id)
         {
-            return _context.Goods.Any(e => e.GoodId == id);
+            return _context.Taxes.Any(e => e.TaxId == id);
         }
     }
 }

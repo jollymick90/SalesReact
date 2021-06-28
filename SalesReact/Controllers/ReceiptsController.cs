@@ -11,47 +11,47 @@ namespace SalesReact.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TodoItemsController : ControllerBase
+    public class ReceiptsController : ControllerBase
     {
-        private readonly TodoContext _context;
+        private readonly SalesContext _context;
 
-        public TodoItemsController(TodoContext context)
+        public ReceiptsController(SalesContext context)
         {
             _context = context;
         }
 
-        // GET: api/TodoItems
+        // GET: api/Receipts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
+        public async Task<ActionResult<IEnumerable<Receipt>>> GetReceipts()
         {
-            return await _context.TodoItems.ToListAsync();
+            return await _context.Receipts.ToListAsync();
         }
 
-        // GET: api/TodoItems/5
+        // GET: api/Receipts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TodoItem>> GetTodoItem(long id)
+        public async Task<ActionResult<Receipt>> GetReceipt(int id)
         {
-            var todoItem = await _context.TodoItems.FindAsync(id);
+            var receipt = await _context.Receipts.FindAsync(id);
 
-            if (todoItem == null)
+            if (receipt == null)
             {
                 return NotFound();
             }
 
-            return todoItem;
+            return receipt;
         }
 
-        // PUT: api/TodoItems/5
+        // PUT: api/Receipts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTodoItem(long id, TodoItem todoItem)
+        public async Task<IActionResult> PutReceipt(int id, Receipt receipt)
         {
-            if (id != todoItem.Id)
+            if (id != receipt.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(todoItem).State = EntityState.Modified;
+            _context.Entry(receipt).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace SalesReact.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TodoItemExists(id))
+                if (!ReceiptExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace SalesReact.Controllers
             return NoContent();
         }
 
-        // POST: api/TodoItems
+        // POST: api/Receipts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem todoItem)
+        public async Task<ActionResult<Receipt>> PostReceipt(Receipt receipt)
         {
-            _context.TodoItems.Add(todoItem);
+            _context.Receipts.Add(receipt);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
+            return CreatedAtAction("GetReceipt", new { id = receipt.Id }, receipt);
         }
 
-        // DELETE: api/TodoItems/5
+        // DELETE: api/Receipts/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTodoItem(long id)
+        public async Task<IActionResult> DeleteReceipt(int id)
         {
-            var todoItem = await _context.TodoItems.FindAsync(id);
-            if (todoItem == null)
+            var receipt = await _context.Receipts.FindAsync(id);
+            if (receipt == null)
             {
                 return NotFound();
             }
 
-            _context.TodoItems.Remove(todoItem);
+            _context.Receipts.Remove(receipt);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TodoItemExists(long id)
+        private bool ReceiptExists(int id)
         {
-            return _context.TodoItems.Any(e => e.Id == id);
+            return _context.Receipts.Any(e => e.Id == id);
         }
     }
 }
