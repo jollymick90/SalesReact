@@ -1,11 +1,10 @@
 import React from 'react';
-
+import { CategoryList } from '../components/CategoryList' 
 export function CategoryListPage() {
     
     return (
         <div>
-            CategpryListPage
-            CategpryList
+            <CategoryList></CategoryList>
         </div>
     );
 }

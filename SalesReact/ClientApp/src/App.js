@@ -22,15 +22,19 @@ export default class App extends Component {
         <Route exact path='/' component={Home} />
 
         <Route path='/good' component={GoodListPage} />
-        <Route path='/good/edit/:id' component={EditGoodPage} />
+        {/* <Route path='/good/edit/:id' component={EditGoodPage} /> */}
+        <Route path='/good-edit/:id' component={EditGoodPage} />
 
         <Route path='/category' component={CategoryListPage} />
-        <Route path='/category/edit/:id' component={EditCategoryPage} />
+        {/* <Route path='/category/edit/:id' component={EditCategoryPage} /> */}
+        <Route path='/category-edit/:id' component={EditCategoryPage} />
 
         <Route path='/receipt' component={ReceiptListPage} />
-        <Route path='/receipt/edit/:id' component={EditReceiptPage} />
+        {/* <Route path='/receipt/edit/:id' component={EditReceiptPage} /> */}
+        <Route path='/receipt-edit/:id' component={EditReceiptPage} />
 
         <Route path='/tax' component={TaxListPage} />
+        <Route path='/tax-edit/:id' component={EditTaxPage} />
         <Route path='/tax/edit/:id' component={EditTaxPage} />
 
       </Layout>

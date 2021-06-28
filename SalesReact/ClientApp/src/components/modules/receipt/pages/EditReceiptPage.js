@@ -1,11 +1,11 @@
 import React from 'react';
+import { EditReceipt } from '../components/EditReceipt';
 
 export function EditReceiptPage() {
     
     return (
         <div>
-            EditReceiptPage
-            EditReceipt
+           <EditReceipt></EditReceipt>
         </div>
     );
 }

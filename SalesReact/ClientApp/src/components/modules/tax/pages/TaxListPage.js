@@ -1,11 +1,11 @@
 import React from 'react';
+import { TaxList } from '../components/TaxList';
 
 export function TaxListPage() {
     
     return (
         <div>
-            TaxListPage
-            TaxList
+           <TaxList></TaxList>
         </div>
     );
 }

@@ -1,11 +1,11 @@
 import React from 'react';
+import { EditTax } from '../components/EditTax';
 
 export function EditTaxPage() {
     
     return (
         <div>
-            EditTaxPage
-            EditTax
+            <EditTax></EditTax>
         </div>
     );
 }

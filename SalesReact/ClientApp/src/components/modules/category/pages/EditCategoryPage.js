@@ -1,11 +1,10 @@
 import React from 'react';
-
+import { EditCategory } from '../components/EditCategory' 
 export function EditCategoryPage() {
     
     return (
         <div>
-            EditCategoryPage
-            EditCategory
+           <EditCategory></EditCategory>
         </div>
     );
 }
