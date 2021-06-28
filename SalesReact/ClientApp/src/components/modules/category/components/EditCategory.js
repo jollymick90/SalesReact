@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export function EditGoodType() {
+export class EditCategory extends Component {
 
+  render() {
     return (
-        <div>
-            EditGoodType
-        </div>
+      <div>
+        EditCategory
+      </div>
     );
+  }
 }
