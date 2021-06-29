@@ -35,4 +35,5 @@ class GoodAPI {
 
 }
 
-export default new GoodAPI();
+const GoodApi = new GoodAPI();
+export default GoodApi;

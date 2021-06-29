@@ -35,4 +35,5 @@ class CategoryAPI {
 
 }
 
-export default new CategoryAPI();
+const CategoryApi = new CategoryAPI();
+export default CategoryApi;

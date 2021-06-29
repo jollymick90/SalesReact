@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import TaxApi from '../../../../services/network/tax';
 
 export class TaxList extends Component {
+    static displayName = TaxList.name;
+    static editPath = "/tax-edit/";
 
     constructor(props) {
         super(props);
@@ -16,7 +18,6 @@ export class TaxList extends Component {
     async populate() {
         const response = await TaxApi.getAll();
         const data = response.data;
-        console.log(response)
         this.setState({ dataList: data, loading: false });
     }
 
@@ -36,7 +37,7 @@ export class TaxList extends Component {
                             <td>{tax.value}</td>
                             <td>{tax.description}</td>
                             <td>
-                                <Link to={`/tax-edit/${tax.taxId}`} className="btn btn-primary">Edit</Link>
+                                <Link to={`${TaxList.editPath}${tax.taxId}`} className="btn btn-primary">Edit</Link>
                             </td>
                         </tr>
                     )}
@@ -51,7 +52,7 @@ export class TaxList extends Component {
         return (
             <div>
                 <h1 id="tabelLabel">All Taxes</h1>
-                <Link to="/tax-edit/-1" className="btn btn-primary">Add</Link>
+                <Link to={`${TaxList.editPath}-1`} className="btn btn-primary">Add</Link>
                 <div>
                     {contents}
                 </div>

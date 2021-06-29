@@ -34,5 +34,5 @@ class ReceiptAPI {
     }
 
 }
-
-export default new ReceiptAPI();
+const ReceiptApi = new ReceiptAPI();
+export default ReceiptApi;

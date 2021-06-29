@@ -58,7 +58,6 @@ export class EditTax extends Component {
 				value: this.state.tax.value,
 				description: this.state.tax.description
 			};
-			console.log(this.taxId)
 			if (this.taxId) {
 				data.taxId = this.taxId;
 				await TaxApi.update(this.taxId, data);
