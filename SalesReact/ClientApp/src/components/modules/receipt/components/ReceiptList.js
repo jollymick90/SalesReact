@@ -19,6 +19,7 @@ export class ReceiptList extends Component {
   async populate() {
       const response = await ReceiptApi.getAll();
       const data = response.data;
+      console.log(data)
       this.setState({ dataList: data, loading: false });
   }
 

@@ -22,6 +22,34 @@ export class GoodList extends Component {
     this.setState({ dataList: data, loading: false });
   }
 
+  static extractCategory(good) {
+    let cat = "";
+    if (good && good.category && good.category.categoryName) {
+      cat = good.category.categoryName.trim();
+    }
+
+    return cat;
+  }
+
+  static extractTaxDescription(good) {
+    let tax = "";
+    if (good && good.category && good.category.tax && good.category.tax.description) {
+      tax = good.category.tax.description.trim();
+    }
+
+    return tax;
+  }
+
+  static extractTaxValue(good) {
+    let tax = 0;
+    if (good && good.category && good.category.tax && good.category.tax.value) {
+      tax = good.category.tax.value;
+    }
+
+    return tax;
+  }
+
+
   static renderTable(goodList) {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
@@ -29,7 +57,9 @@ export class GoodList extends Component {
           <tr>
             <th>Name</th>
             <th>Price</th>
-            <th>CategoryId</th>
+            <th>Category</th>
+            <th>Tax Type</th>
+            <th>Tax Value</th>
             <th>Edit</th>
           </tr>
         </thead>
@@ -38,7 +68,9 @@ export class GoodList extends Component {
             <tr key={good.goodId}>
               <td>{good.name}</td>
               <td>{good.price}</td>
-              <td>CategoryId</td>
+              <td>{this.extractCategory(good)}</td>
+              <td>{this.extractTaxDescription(good)}</td>
+              <td>{this.extractTaxValue(good)}</td>
               <td>
                 <Link to={`${GoodList.editPath}${good.goodId}`} className="btn btn-primary">Edit</Link>
               </td>

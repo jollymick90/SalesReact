@@ -24,7 +24,12 @@ namespace SalesReact.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            return await _context.Categories.ToListAsync();
+            var query= _context.Categories;
+            var res = await query.ToListAsync();
+            //res.ForEach(c => _context.Entry(c).Reference(e => e.Tax).Load());
+            //await query.ForEachAsync(c => _context.Entry(c).Reference(e => e.Tax).Load() );
+            //await  _context.Entry(list).Reference(e => e.Tax).Load();
+            return res;
         }
 
         // GET: api/Categories/5
@@ -37,6 +42,8 @@ namespace SalesReact.Controllers
             {
                 return NotFound();
             }
+
+            _context.Entry(category).Reference(e => e.Tax).Load();
 
             return category;
         }

@@ -8,6 +8,7 @@ export class EditTax extends Component {
 		this.onChangeValue = this.onChangeValue.bind(this);
 		this.onChangeDescription = this.onChangeDescription.bind(this);
 		this.save = this.save.bind(this);
+		
 		this.taxId = props.dataId;
 		this.state = {
 			tax: {},

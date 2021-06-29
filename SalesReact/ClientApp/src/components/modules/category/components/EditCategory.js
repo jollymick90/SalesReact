@@ -5,10 +5,13 @@ export class EditCategory extends Component {
 
   constructor(props) {
     super(props);
-    this.categoryId = props.dataId;
     this.onChangeName = this.onChangeName.bind(this);
     this.save = this.save.bind(this);
-    this.setState({ category: {}, loading: false });
+    this.categoryId = props.dataId;
+    this.state = {
+			category: {},
+			loading: true
+		}
   }
 
   componentDidMount() {
@@ -25,11 +28,11 @@ export class EditCategory extends Component {
     this.setState({ category: data, loading: false });
   }
 
-  onChangeValue(e) {
-    const taxUpdate = { ...this.state.tax };
-    taxUpdate.value = e.target.value;
+  onChangeName(e) {
+    const catUpdate = { ...this.state.category };
+    catUpdate.value = e.target.value;
     this.setState({
-      tax: taxUpdate,
+      category: catUpdate,
       loading: false
     });
   }
@@ -67,7 +70,7 @@ export class EditCategory extends Component {
               className="form-control"
               id="name"
               required
-              value={this.state.caegoery.name || ''}
+              value={this.state.category.name || ''}
               onChange={this.onChangeName}
               name="name"
             />

@@ -21,6 +21,14 @@ export class CategoryList extends Component {
     this.setState({ dataList: data, loading: false });
   }
 
+  static extractTax(category) {
+    let tax = "";
+    if (category && category.tax && category.tax.description) {
+      tax = category.tax.description.trim();
+    }
+
+    return tax;
+  }
 
   static renderTable(categoryList) {
     return (
@@ -36,7 +44,7 @@ export class CategoryList extends Component {
           {categoryList.map(category =>
             <tr key={category.categoryId}>
               <td>{category.categoryName}</td>
-              <td>Tax</td>
+              <td>{this.extractTax(category)}</td>
               <td>
                 <Link to={`${CategoryList.editPath}${category.categoryId}`} className="btn btn-primary">Edit</Link>
               </td>
