@@ -1,6 +1,9 @@
+import Button from 'react-bootstrap/Button';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+
 import GoodApi from '../../../../services/network/good';
+import { extractCategory, extractTaxDescription, extractTaxValue } from '../../../../services/models/good/goodUtils';
 
 export class GoodList extends Component {
 
@@ -9,6 +12,9 @@ export class GoodList extends Component {
   
   constructor(props) {
     super(props);
+    this.disbledEdit = props.disableEdit;
+    this.onSelected = this.props.onSelected;
+    this.onInternalSelected = this.onInternalSelected.bind(this);
     this.state = { dataList: [], loading: true };
   }
 
@@ -22,35 +28,22 @@ export class GoodList extends Component {
     this.setState({ dataList: data, loading: false });
   }
 
-  static extractCategory(good) {
-    let cat = "";
-    if (good && good.category && good.category.categoryName) {
-      cat = good.category.categoryName.trim();
+  onInternalSelected(good) {
+    if (this.onSelected) {
+      this.onSelected(good);
     }
 
-    return cat;
   }
 
-  static extractTaxDescription(good) {
-    let tax = "";
-    if (good && good.category && good.category.tax && good.category.tax.description) {
-      tax = good.category.tax.description.trim();
-    }
-
-    return tax;
+  getButtonEdit(good) {
+    return this.onSelected ? (
+      <Button className="btn btn-primary" onClick={() => this.onInternalSelected(good)}>Add</Button>
+    ) : (
+      <Link to={`${GoodList.editPath}${good.goodId}`} className="btn btn-primary">Edit</Link>      
+    )
   }
 
-  static extractTaxValue(good) {
-    let tax = 0;
-    if (good && good.category && good.category.tax && good.category.tax.value) {
-      tax = good.category.tax.value;
-    }
-
-    return tax;
-  }
-
-
-  static renderTable(goodList) {
+  renderTable(goodList) {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
@@ -60,20 +53,21 @@ export class GoodList extends Component {
             <th>Category</th>
             <th>Tax Type</th>
             <th>Tax Value</th>
-            <th>Edit</th>
+            <th>Action</th>            
           </tr>
         </thead>
         <tbody>
+        
           {goodList.map(good =>
             <tr key={good.goodId}>
               <td>{good.name}</td>
               <td>{good.price}</td>
-              <td>{this.extractCategory(good)}</td>
-              <td>{this.extractTaxDescription(good)}</td>
-              <td>{this.extractTaxValue(good)}</td>
+              <td>{extractCategory(good)}</td>
+              <td>{extractTaxDescription(good)}</td>
+              <td>{extractTaxValue(good)}</td>
               <td>
-                <Link to={`${GoodList.editPath}${good.goodId}`} className="btn btn-primary">Edit</Link>
-              </td>
+                {this.getButtonEdit(good)}            
+              </td>             
             </tr>
           )}
         </tbody>
@@ -83,7 +77,7 @@ export class GoodList extends Component {
 
   render() {
     const contents = this.state.loading ? <p>Loading...</p> :
-    GoodList.renderTable(this.state.dataList);
+    this.renderTable(this.state.dataList, this);
     return (
       <div>
         <h1 id="tabelLabel">All Goods</h1>

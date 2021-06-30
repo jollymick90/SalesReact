@@ -11,6 +11,7 @@ import { EditTaxPage } from './components/modules/tax/pages/EditTaxPage'
 import { ReceiptListPage } from './components/modules/receipt/pages/ReceiptListPage'
 import { EditReceiptPage } from './components/modules/receipt/pages/EditReceiptPage'
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './custom.css'
 
 export default class App extends Component {
