@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import GoodApi from '../../../../services/network/good';
+import { withRouter } from "react-router";
 
-export class EditGood extends Component {
+class EditGoodI extends Component {
 
   constructor(props) {
     super(props);
@@ -77,6 +78,7 @@ export class EditGood extends Component {
       } else {
         await GoodApi.create(data);
       }
+      this.props.history.push("/good")
     } catch (error) {
       console.log("Error on save", error);
     }
@@ -140,3 +142,6 @@ export class EditGood extends Component {
     );
   }
 }
+
+const EditGood = withRouter(EditGoodI);
+export {EditGood};

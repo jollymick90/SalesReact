@@ -53,6 +53,7 @@ export class GoodList extends Component {
             <th>Category</th>
             <th>Tax Type</th>
             <th>Tax Value</th>
+            <th>Imported</th>
             <th>Action</th>            
           </tr>
         </thead>
@@ -65,6 +66,7 @@ export class GoodList extends Component {
               <td>{extractCategory(good)}</td>
               <td>{extractTaxDescription(good)}</td>
               <td>{extractTaxValue(good)}</td>
+              <td>{ good.imported ? "yes" : "no" }</td>
               <td>
                 {this.getButtonEdit(good)}            
               </td>             

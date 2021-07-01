@@ -13,7 +13,7 @@ namespace SalesReact.Models
         }
 
         public int Id { get; set; }
-        public int Total { get; set; }
+        public int? Total { get; set; }
         public DateTime Date { get; set; }
         public int? TotalItems { get; set; }
 

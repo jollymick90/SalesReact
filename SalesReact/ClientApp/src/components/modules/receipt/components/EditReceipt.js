@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { extractCategory } from '../../../../services/models/good/goodUtils';
-import { calculatePrice, calculateTaxPrice } from '../../../../services/models/receipt/receiptUtils';
+import { calculatePrice, calculatePriceTax } from '../../../../services/models/receipt/receiptUtils';
 import { ModalGoodList } from './ModalGoodList';
 
 export function EditReceipt() {
@@ -20,16 +20,18 @@ export function EditReceipt() {
       item.totalItem = 1;
       item.good = good;
 
-      item.totalTaxPrice = calculateTaxPrice(good, 1);
-      item.totalPrice = calculatePrice(good, 1, item.totalTaxPrice);
+      item.totalPriceTax = calculatePriceTax(good, 1);
+      item.totalPrice = calculatePrice(good, 1);
+      item.totalTaxPrice = item.totalPriceTax - item.totalPrice;
 
       newarray.push(item)
     } else {
 
       item.totalItem++;
-
-      item.totalTaxPrice = calculateTaxPrice(good, item.totalItem);
-      item.totalPrice = calculatePrice(good, item.totalItem, item.totalTaxPrice);
+      
+      item.totalPriceTax = calculatePriceTax(good, item.totalItem);
+      item.totalPrice = calculatePrice(good, item.totalItem);
+      item.totalTaxPrice = item.totalPriceTax - item.totalPrice;
 
     }
 
@@ -58,16 +60,18 @@ export function EditReceipt() {
 
   const increment = (item) => {
     item.totalItem++;
-    item.totalTaxPrice = calculateTaxPrice(item.good, item.totalItem);
-    item.totalPrice = calculatePrice(item.good, item.totalItem, item.totalTaxPrice);
+    item.totalPriceTax = calculatePriceTax(item.good, item.totalItem);
+    item.totalPrice = calculatePrice(item.good, item.totalItem);
+    item.totalTaxPrice = item.totalPriceTax - item.totalPrice;
     update(itemAdded);
   }
 
   const decrement = (item) => {
     if (item.totalItem > 0) {
       item.totalItem--;
-      item.totalTaxPrice = calculateTaxPrice(item.good, item.totalItem);
-      item.totalPrice = calculatePrice(item.good, item.totalItem, item.totalTaxPrice);
+      item.totalPriceTax = calculatePriceTax(item.good, item.totalItem);
+      item.totalPrice = calculatePrice(item.good, item.totalItem);
+      item.totalTaxPrice = item.totalPriceTax - item.totalPrice;
       update(itemAdded);
     }
 
@@ -90,6 +94,8 @@ export function EditReceipt() {
           <tr>
             <th>Name</th>
             <th>Category</th>
+            <th>Price Item</th>
+            <th>Tax Item</th>
             <th>TotalPrice</th>
             <th>TotalTaxPrice</th>
             <th>Quantity</th>
@@ -102,7 +108,9 @@ export function EditReceipt() {
             <tr key={item.id}>
               <td>{item.good.name}</td>
               <td>{extractCategory(item.good)}</td>
-              <td>{item.totalPrice}</td>
+              <td>{item.good.price}</td>
+              <td>{item.good.category.tax.value}</td>              
+              <td>{item.totalPriceTax}</td>
               <td>{item.totalTaxPrice}</td>
               <td>{item.totalItem}</td>
               <td>{buildButtons(item)}</td>
@@ -117,9 +125,9 @@ export function EditReceipt() {
     <div>
       <ModalGoodList onSelected={(goodSelected) => { updateSelected(goodSelected) }}></ModalGoodList>
       <div className="headReceipt">
-          <h2>{receiptTotalItem}</h2>
-          <h2>{receiptTotalPrice}</h2>
-          <h2>{receiptTotalTax}</h2>      
+          <h2><span>Total Items: </span>{receiptTotalItem}</h2>
+          <h2><span>Total Price: </span>{receiptTotalPrice}</h2>
+          <h2><span>Total Tax: </span>{receiptTotalTax}</h2>      
       </div>
       <div>
         {renderTable(itemAdded)}

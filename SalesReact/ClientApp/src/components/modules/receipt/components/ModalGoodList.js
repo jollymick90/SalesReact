@@ -17,7 +17,7 @@ export function ModalGoodList({onSelected}) {
   return (
     <div>
       <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
+        Add good
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -29,9 +29,6 @@ export function ModalGoodList({onSelected}) {
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>
