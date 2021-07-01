@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import { useHistory } from 'react-router-dom';
 import { extractCategory } from '../../../../services/models/good/goodUtils';
 import { calculatePrice, calculatePriceTax } from '../../../../services/models/receipt/receiptUtils';
+import ReceiptTempApi from '../../../../services/network/receipt/receiptTemp';
 import { ModalGoodList } from './ModalGoodList';
 
 export function EditReceipt() {
+  const history = useHistory();
 
   const [itemAdded, setListGoodSelected] = useState([]);
   const [receiptTotalItem, setReceiptTotalItem] = useState(0);
@@ -121,6 +124,30 @@ export function EditReceipt() {
     );
   };
 
+  const save = async () => {
+    try {
+      const receiptTemp = {
+        ReceiptItems: []
+      }
+      itemAdded.forEach((item) => {
+        receiptTemp.ReceiptItems.push({
+          GoodId: item.good.goodId,
+          GoodName: item.good.name,
+          Quantity: item.totalItem,
+          TaxItem: item.good.category.tax.value,
+          TotalPrice:item.totalPriceTax,
+          TotalTax: item.totalTaxPrice
+        })
+        
+      });
+      await ReceiptTempApi.create(receiptTemp);
+      history.push("/receipt");
+    } catch (error) {
+      console.log("error save", error);
+    }
+
+  }
+
   return (
     <div>
       <ModalGoodList onSelected={(goodSelected) => { updateSelected(goodSelected) }}></ModalGoodList>
@@ -128,6 +155,9 @@ export function EditReceipt() {
           <h2><span>Total Items: </span>{receiptTotalItem}</h2>
           <h2><span>Total Price: </span>{receiptTotalPrice}</h2>
           <h2><span>Total Tax: </span>{receiptTotalTax}</h2>      
+      </div>
+      <div>
+        <Button onClick={save}>save</Button>
       </div>
       <div>
         {renderTable(itemAdded)}

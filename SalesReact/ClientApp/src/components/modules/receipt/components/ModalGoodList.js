@@ -19,7 +19,7 @@ export function ModalGoodList({onSelected}) {
       <Button variant="primary" onClick={handleShow}>
         Add good
       </Button>
-      <Modal show={show} onHide={handleClose}>
+      <Modal size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add good</Modal.Title>
         </Modal.Header>

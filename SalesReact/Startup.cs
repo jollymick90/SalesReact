@@ -28,9 +28,10 @@ namespace SalesReact
              */
             //services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
 
-            services.AddDbContext<SalesContext>();
+            services.AddDbContext<SalesContext>( b => b.UseLazyLoadingProxies());
 
             services.AddControllersWithViews()
+                 
                       .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );

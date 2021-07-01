@@ -4,8 +4,14 @@ const roundingPolicy = (price) => {
 }
 
 export const calculatePriceTax = (good, totalItem) => {
-    const taxValue = good.category.tax.value + (good.imported ? 5 : 0)
-    return roundingPolicy(good.price + good.price * ( taxValue/ 100)) * totalItem;
+    if (good && good.category && good.category.tax) {
+        const taxValue = good.category.tax.value + (good.imported ? 5 : 0)
+        return roundingPolicy(good.price + good.price * ( taxValue/ 100)) * totalItem;
+    } else {
+        console.log("error calculate price")
+        return 0;
+    }
+    
 }
 
 export const calculatePrice = (good, totalItem, totalTaxPrice) => {

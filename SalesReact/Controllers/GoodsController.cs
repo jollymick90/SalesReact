@@ -24,6 +24,7 @@ namespace SalesReact.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Good>>> GetGoods()
         {
+
             return await _context.Goods.ToListAsync();
         }
 
