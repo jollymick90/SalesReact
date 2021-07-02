@@ -24,3 +24,7 @@ export const extractTaxValue = (good) => {
 
   return tax;
 }
+
+export const extractPrice = (price) => {
+    return (price / 100).toFixed(2);
+}

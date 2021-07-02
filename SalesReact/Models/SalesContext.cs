@@ -20,6 +20,7 @@ namespace SalesReact.Models
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Good> Goods { get; set; }
         public virtual DbSet<GoodCategory> GoodCategories { get; set; }
+        public virtual DbSet<InvoiceSetting> InvoiceSettings { get; set; }
         public virtual DbSet<Receipt> Receipts { get; set; }
         public virtual DbSet<ReceiptGood> ReceiptGoods { get; set; }
         public virtual DbSet<Tax> Taxes { get; set; }
@@ -28,7 +29,7 @@ namespace SalesReact.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//##warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=.\\;Database=Sales;Trusted_Connection=True;");
             }
         }
@@ -72,6 +73,15 @@ namespace SalesReact.Models
                 entity.ToTable("GoodCategory");
             });
 
+            modelBuilder.Entity<InvoiceSetting>(entity =>
+            {
+                entity.HasKey(e => e.ParamName);
+
+                entity.Property(e => e.ParamName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<Receipt>(entity =>
             {
                 entity.ToTable("Receipt");
@@ -91,13 +101,11 @@ namespace SalesReact.Models
                 entity.HasOne(d => d.Good)
                     .WithMany(p => p.ReceiptGoods)
                     .HasForeignKey(d => d.GoodId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ReceiptGood_Good");
 
                 entity.HasOne(d => d.Receipt)
                     .WithMany(p => p.ReceiptGoods)
                     .HasForeignKey(d => d.ReceiptId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ReceiptGood_Receipt");
             });
 

@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace SalesReact.Models
 {
-    public class ReceiptItemDTO
+    public class PriceResultDTO
     {
-        public int GoodId { get; set; }    
+        public Int32 TotalPrice { get; set; }
 
-        public int Quantity { get; set; }
-
+        public Int32 TotalTax { get; set; }
 
     }
 }

@@ -9,6 +9,11 @@ export class BaseService {
     constructor(baseApi) {
         this.baseApi = baseApi;
     }
+
+    getHttp() {
+      return http;
+    }
+    
     getAll() {
       return http.get(this.baseApi);
     }

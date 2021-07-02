@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import GoodApi from '../../../../services/network/good';
-import { extractCategory, extractTaxDescription, extractTaxValue } from '../../../../services/models/good/goodUtils';
+import { extractCategory, extractTaxDescription, extractTaxValue, extractPrice } from '../../../../services/models/good/goodUtils';
 
 export class GoodList extends Component {
 
@@ -62,7 +62,7 @@ export class GoodList extends Component {
           {goodList.map(good =>
             <tr key={good.goodId}>
               <td>{good.name}</td>
-              <td>{good.price}</td>
+              <td>{extractPrice(good.price)}</td>
               <td>{extractCategory(good)}</td>
               <td>{extractTaxDescription(good)}</td>
               <td>{extractTaxValue(good)}</td>

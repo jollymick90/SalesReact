@@ -26,7 +26,6 @@ namespace SalesReact
             /**
              * used for first test
              */
-            //services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
 
             services.AddDbContext<SalesContext>( b => b.UseLazyLoadingProxies());
 

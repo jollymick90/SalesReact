@@ -12,6 +12,18 @@ class ReceiptTempAPI {
     create(data) {
         return this.instance.create(data);
     }
+
+    getPrice(good, totalItem) {
+
+        return this.instance.getHttp().get(`${this.instance.baseApi}/getPrice`,
+            {
+                params: {
+                    "GoodId": good.goodId,
+                    "Quantity": totalItem
+                }
+            }
+        );
+    }
 }
 const ReceiptTempApi = new ReceiptTempAPI();
 export default ReceiptTempApi;

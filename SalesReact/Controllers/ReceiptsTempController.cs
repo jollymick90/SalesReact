@@ -20,6 +20,56 @@ namespace SalesReact.Controllers
             _context = context;
         }
 
+        [HttpGet("getPrice")] 
+        public async Task<ActionResult<PriceResultDTO>> GetPrice(int? GoodId, int Quantity)
+        {
+            PriceResultDTO result = new PriceResultDTO();
+            if (GoodId != null)
+            {
+                Good good = await _context.Goods.FindAsync(GoodId);
+                if (good != null)
+                {
+                    return this.calculatePrice(good, Quantity);
+                }
+                
+            }
+            
+            return result;
+        }
+
+        private Double roundingPolicy(Double value)
+        {
+            return value;
+        }
+
+        private PriceResultDTO calculatePrice(Good good, int Quantity)
+        {
+            int tax = good.Category.Tax.Value;
+
+            if (good.Imported == true)
+            {
+                // get tax valoue from settings db _context.InvoiceSettings.FindAsync("")
+                tax += 5;
+            }
+            
+            Double priceD = Convert.ToDouble(good.Price);
+            Double taxD = Convert.ToDouble(tax);
+            Double value = priceD * (1 + (taxD / 100));
+            Double valueRounded = this.roundingPolicy(value) * Quantity;
+
+
+            PriceResultDTO pResult = new PriceResultDTO();
+            
+            pResult.TotalPrice = Convert.ToInt32(valueRounded);
+            pResult.TotalTax = Convert.ToInt32(pResult.TotalPrice - good.Price * Quantity);
+            
+
+            Console.WriteLine("valueRounded: " + valueRounded + "; priceD=" + priceD + " pResult: " + pResult);
+
+
+            return pResult;
+        }
+
 
         // POST: api/Receipts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -51,22 +101,28 @@ namespace SalesReact.Controllers
             {
                 
                 countItem += receiptItemDto.Quantity;
-                totalPrice += receiptItemDto.TotalPrice;
+                
                 Console.WriteLine("add item " + countItem);
 
                 ReceiptGood rGood = new ReceiptGood();
                 rGood.Receipt = newReceipt;
                 rGood.Quantity = receiptItemDto.Quantity;
-                
-                rGood.TotalTax = receiptItemDto.TotalTax;
+
 
                 Good good = await _context.Goods.FindAsync(receiptItemDto.GoodId);
                 if (good != null)
                 {
+                    PriceResultDTO priceResult = this.calculatePrice(good, rGood.Quantity);
+
+                    rGood.TotalTax = priceResult.TotalTax;
+                    rGood.TotalPrice = priceResult.TotalPrice;
+
                     rGood.GoodId = receiptItemDto.GoodId;
                     rGood.GoodName = good.Name;
                     rGood.PriceItem = good.Price;
-                    rGood.TaxItem = receiptItemDto.TaxItem;
+                    rGood.TaxItem = good.Category.Tax.Value;
+
+                    totalPrice += priceResult.TotalPrice;
                 }
 
                 _context.ReceiptGoods.Add(rGood);
@@ -83,21 +139,21 @@ namespace SalesReact.Controllers
 
             }
 
-            //newReceipt.TotalItems = countItem;
-            //newReceipt.Total = totalPrice;
+            newReceipt.TotalItems = countItem;
+            newReceipt.Total = totalPrice;
 
-            //_context.Entry(newReceipt).State = EntityState.Modified;
+            _context.Entry(newReceipt).State = EntityState.Modified;
 
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (Exception)
-            //{
-            //    Console.WriteLine("error update receipt DbUpdateConcurrencyException add item Error");
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("error update receipt DbUpdateConcurrencyException add item Error");
 
-            //    throw;                
-            //}
+                throw;
+            }
             return "ok";
         }
 
